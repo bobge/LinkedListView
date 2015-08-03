@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.duora.linkedlistview.MainActivity;
@@ -80,6 +79,12 @@ public class GoodsAdapter extends BaseAdapter{
                 viewholder.iv_remove.setVisibility(View.VISIBLE);
                 viewholder.et_acount.setText(list.get(position).getCount() + "");
                 catograyAdapter.notifyDataSetChanged();
+
+                int[] startLocation = new int[2];// 一个整型数组，用来存储按钮的在屏幕的X、Y坐标
+                v.getLocationInWindow(startLocation);// 这是获取购买按钮的在屏幕的X、Y坐标（这也是动画开始的坐标）
+                ImageView ball = new ImageView(context);// buyImg是动画的图片，我的是一个小球（R.drawable.sign）
+                ball.setImageResource(R.mipmap.ic_launcher);// 设置buyImg的图片
+                ((MainActivity)context).setAnim(ball, startLocation);// 开始执行动画
             }
         });
         Log.i("test",list.get(position).getCount()+"==");
@@ -98,24 +103,6 @@ public class GoodsAdapter extends BaseAdapter{
         TextView tv_price;
         ImageView iv_add,iv_remove;
         EditText et_acount;
-    }
-    /**
-     * @Description: 创建动画层
-     * @param
-     * @return void
-     * @throws
-     */
-    private ViewGroup createAnimLayout() {
-        ViewGroup rootView = (ViewGroup) ((MainActivity)context).getWindow().getDecorView();
-        LinearLayout animLayout = new LinearLayout(context);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT);
-        animLayout.setLayoutParams(lp);
-        animLayout.setId(Integer.MAX_VALUE-1);
-        animLayout.setBackgroundResource(android.R.color.transparent);
-        rootView.addView(animLayout);
-        return animLayout;
     }
 
 }
