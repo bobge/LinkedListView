@@ -1,0 +1,2 @@
+# LinkedListView
+两个ListView联动效果，并且实现购物车动画效果的demo
